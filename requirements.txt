@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+
+langgraph
+langchain
+langchain-core
+
+langchain-groq
+
+langgraph-checkpoint-postgres
+psycopg[binary,pool]
+
+python-dotenv
+pydantic
+
+black
