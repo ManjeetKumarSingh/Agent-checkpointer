@@ -83,3 +83,66 @@ black
 ### For running the api endpoints :
 
 `uvicorn app.main:app --reload`
+
+
+```MultyModelRag.txt
+
+                         USER PDF
+                            │
+                            ▼
+                    ┌─────────────┐
+                    │     S3      │
+                    │  Raw Zone   │
+                    └──────┬──────┘
+                           │
+                     EventBridge
+                           │
+                           ▼
+                    Step Functions
+                           │
+                           ▼
+              ┌────────────────────────┐
+              │ Bedrock Data Automation │
+              │     / FM Parser         │
+              └───────────┬────────────┘
+                          │
+             ┌────────────┼─────────────┐
+             ▼            ▼             ▼
+           TEXT         TABLE         IMAGE
+             │            │             │
+             ▼            ▼             ▼
+         Chunking     Structured    S3 image
+             │          table          │
+             │            │            │
+             └────────────┼────────────┘
+                          ▼
+                  Embedding Layer
+                          │
+             ┌────────────┴────────────┐
+             │                         │
+        Text Embedding          Multimodal
+        Titan V2                Embedding
+             │                         │
+             └────────────┬────────────┘
+                          ▼
+                OpenSearch Serverless
+                  Vector Index
+                          │
+                          ▼
+                    Hybrid Search
+                 BM25 + Vector Search
+                          │
+                          ▼
+                       Reranker
+                          │
+                          ▼
+                     LangGraph
+                          │
+                          ▼
+                    Amazon Nova
+                     VLM / LLM
+                          │
+                          ▼
+                      RESPONSE
+
+```
